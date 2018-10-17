@@ -1,5 +1,6 @@
 function Sixinput (ele, option, callback) {
   this.ele = $(ele).css("display", "inline-block");
+  this.ele.prop("value", "")
   if (callback) {
     this.callback = callback;
   }
@@ -33,11 +34,12 @@ Sixinput.prototype = {
           } else {
             $(this).val("")
           }
+          This.finalVal()
         }
       }
       item.oninput = function (e) {
         if ($(this).val() != "") {
-          if (!this.value.match(/\d/) && this.value.length == 1) {
+          if (!this.value.match(/\d/)) {
             this.value = "";
             return;
           }
@@ -78,7 +80,7 @@ Sixinput.prototype = {
     var ok = true
     $(this.ele).children("input").each(function (index, item) {
       if (item.value == "") {
-        $(This.ele).removeAttr("value")
+        $(This.ele).prop("value", "")
         ok = false;
       }
     })
@@ -87,7 +89,7 @@ Sixinput.prototype = {
       $(this.ele).children("input").each(function (index, item) {
         value += $(item).data("value");
       })
-      $(this.ele).attr("value", value)
+      $(this.ele).prop("value", value)
       if (this.callback) {
         this.callback(value)
       }
@@ -97,11 +99,11 @@ Sixinput.prototype = {
       $(this.ele).children("input").each(function (index, item) {
         $(item).val("")
       })
-      $(this.ele).removeAttr("value")
+      $(this.ele).prop("value", "")
   },
   onlyread: function (color) {
       $(this.ele).children("input").each(function (index, item) {
-          $(item).attr("disabled", "disabled");
+          $(item).attr("disabled", true);
           $(item).css("backgroundColor", color ? color :"#eee");
       })
   },
@@ -111,5 +113,8 @@ Sixinput.prototype = {
           $(item).removeAttr("disabled");
           $(item).css("backgroundColor", This.options.backgroundColor);
       })
+  },
+  autofocus: function() {
+      $(this.ele).children("input").eq(0).focus();
   }
 }
