@@ -9,6 +9,6 @@
 
 初始化：new Sixinput($("#inputPayPasswordemil"))
 
-获取值：$("#inputPayPasswordemil").attr("value")
+获取值：$("#inputPayPasswordemil").val()
 
 清空：new Sixinput($("#inputPayPasswordemil")).clear()
